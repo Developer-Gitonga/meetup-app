@@ -13,7 +13,7 @@ const DUMMY_MEETUPS = [
 
     {
         id: "m2",
-        title: "A First Meetup",
+        title: "A Second Meetup",
         image: "https://unsplash.com/photos/RwHv7LgeC7s",
         address: "Chania, Greece",
         description: "This is a Second meetup!",
@@ -46,6 +46,9 @@ function HomePage(props) {
 export async function getStaticProps() {
 
     //fetch data from an API
+
+    fetch('/api/meetups'); 
+    
     return {
         props: {
             meetups:DUMMY_MEETUPS
