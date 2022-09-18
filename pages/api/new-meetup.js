@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 
-// / api/new-meetup
+// /api/new-meetup
 // POST /api/new-meetup
 
 async function handler(req, res) {
