@@ -17,12 +17,11 @@ function MeetupDetails() {
             description={props.meetupData.description}
             />
         </Fragment>
-    );
+    ); 
 }
 
 // for dynamic pages
 export async function getStaticPaths() {
-
     const client = await MongoClient.connect(
         "mongodb+srv://dev-git:reactmeetup@clustersandbox.blnwdno.mongodb.net/meetup"
     );
