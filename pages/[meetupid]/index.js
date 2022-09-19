@@ -6,16 +6,15 @@ import { Fragment } from 'react';
 function MeetupDetails() {
     return (
         <Fragment>
-        <Head>
+            <Head>
             <title>{props.meetupData.title}</title>
-            <meta name='description'
-                content={props.meetupData.description} />
-        </Head>
-        <MeetupDetail
-            image='https://en.wikipedia.org/wiki/John_Wick_(film)#/media/File:John_Wick_TeaserPoster.jpg'
-            title='A first meetup'
-            address='Athens, Greece'
-            description='This is a First meetup!'
+            <meta name="description" content={props.meetupData.description} />
+            </Head>
+            <MeetupDetail
+            image={props.meetupData.image}
+            title={props.meetupData.title}
+            address={props.meetupData.address}
+            description={props.meetupData.description}
             />
         </Fragment>
     );
@@ -31,7 +30,7 @@ export async function getStaticPaths() {
 
     const meetupsCollection = db.collection("meetups");
 
-    const meetups = await meetupsCollection.findOne({_id: meetupId }).toArray();
+    const meetups = await meetupsCollection.find({}, {_id: 1 }).toArray();
 
     client.close();
 

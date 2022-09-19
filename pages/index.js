@@ -26,54 +26,55 @@ function HomePage(props) {
 //         };
 // }
 
-export async function getStaticPaths() {
-    //fetch data from an API
-    const client = await MongoClient.connect(
-        'mongodb+srv://dev-git:reactmeetup@clustersandbox.blnwdno.mongodb.net/meetup'
-    );
-    const db = client.db();
-
-    const meetupsCollection = db.collection('meetups');
-
-    const meetups = await meetupsCollection.findOne({}, { _id: 1 }).toArray();
-
-    client.close();
-    
-    return {
-
-            fallback: false,
-            paths: meetups.map((meetup) => ({
-            params: { meetupId: meetup._id.toString() },
-            })),
-    };
-}
-
-export async function getStaticProps(context) { 
+export async function getStaticProps(context) {
     // fetch data for a single meetup
 
-    const meetupId = context.params.meetupId;
+    // const meetupId = context.params.meetupId;
 
     const client = await MongoClient.connect(
-        'mongodb+srv://dev-git:reactmeetup@clustersandbox.blnwdno.mongodb.net/meetup'
+        "mongodb+srv://dev-git:reactmeetup@clustersandbox.blnwdno.mongodb.net/meetup"
     );
     const db = client.db();
 
-    const meetupsCollection = db.collection('meetups');
+    const meetupsCollection = db.collection("meetups");
 
-    const meetups = await meetupsCollection.findOne({_id: meetupId });
+    const meetups = await meetupsCollection.find().toArray();
 
     client.close();
 
     return {
         props: {
-            meetupData: selectedMeetup,
-            
-            
+            meetups: meetups.map((meetup) => ({
+                params: { meetupId: meetup._id.toString() },
 
-        },
-
+            })),
+        }
     };
+    
 }
+
+// export async function getStaticPaths() {
+//     //fetch data from an API
+//     const client = await MongoClient.connect(
+//         'mongodb+srv://dev-git:reactmeetup@clustersandbox.blnwdno.mongodb.net/meetup'
+//     );
+//     const db = client.db();
+
+//     const meetupsCollection = db.collection('meetups');
+
+//     const meetups = await meetupsCollection.findOne({}, { _id: 1 }).toArray();
+
+//     client.close();
+    
+//     return {
+
+//             fallback: false,
+//             paths: meetups.map((meetup) => ({
+//             params: { meetupId: meetup._id.toString() },
+//             })),
+//     };
+// }
+
 
 
 export default HomePage;
